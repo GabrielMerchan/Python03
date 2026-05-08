@@ -8,18 +8,12 @@ class err_syntax(Exception):
         super().__init__(msg)
 
 
-def check_elements(val_list: list) -> None:
+def check_elements(val_list: list[str]) -> None:
     if len(val_list) != 3:
-        raise err_syntax
+        raise err_syntax()
 
 
-def neg_val(val_list: list) -> None:
-    for i in val_list:
-        if i < 0:
-            raise err_syntax(f"Parameter '{i}' can't be negative")
-
-
-def ask_coord() -> tuple:
+def ask_coord() -> tuple[float, float, float]:
     val_str = input("Enter new coordinates as floats in format "
                     "'x,y,z': ").split(",")
     try:
@@ -35,11 +29,17 @@ def ask_coord() -> tuple:
         print(f"Error on parameter '{i}': could "
               f"not convert string to float: '{i}'")
         return ask_coord()
-    values = tuple(val_int)
+    if len(val_int) != 3:
+        raise err_syntax()
+    x, y, z = val_int
+    values = (x, y, z)
     return values
 
 
-def distance_form(tuple1: tuple, tuple2: tuple) -> float:
+def distance_form(
+    tuple1: tuple[float, float, float],
+    tuple2: tuple[float, float, float]
+) -> float:
     distance = round(float(math.sqrt((tuple1[0]-tuple2[0]) ** 2
                                      + (tuple1[1]-tuple2[1]) ** 2
                                      + (tuple1[2]-tuple2[2]) ** 2)), 4)
@@ -52,7 +52,8 @@ def display_coords() -> None:
     coord1 = ask_coord()
     print(f"Got a first tuple: ({coord1})")
     print(f"It includes: X={coord1[0]}, Y={coord1[1]}, Z={coord1[2]}")
-    distance = distance_form(coord1, (0, 0, 0))
+    center = (0.0, 0.0, 0.0)
+    distance = distance_form(coord1, center)
     print(f"Distance to center: {distance}\n")
     print("Get a second set of coordinates")
     coord2 = ask_coord()

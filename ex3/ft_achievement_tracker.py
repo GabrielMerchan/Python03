@@ -8,7 +8,7 @@ achievements = ["Harder", "Better", "Faster", "Stronger", "Buy it",
                 "Change it", "Mail", "Upgrade it"]
 
 
-def gen_player_achievements() -> set:
+def gen_player_achievements() -> set[str]:
     achv_cont = random.randint(5, 9)
     player = set(random.sample(achievements, achv_cont))
     return player

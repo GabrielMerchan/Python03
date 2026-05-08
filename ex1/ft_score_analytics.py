@@ -13,10 +13,9 @@ def input_score(score_str: str) -> int:
     return num
 
 
-def check_scores(scores: list) -> list:
+def check_scores(scores: list[str]) -> list[int]:
     if len(scores) == 0:
         raise Usage("python3 ft_score_analytics.py <score1> <score2> ...")
-    i = 1
     score_good = []
     cont = len(scores)
     for i in scores:
@@ -30,7 +29,7 @@ def check_scores(scores: list) -> list:
     return score_good
 
 
-def add_scores() -> list:
+def add_scores() -> list[int]:
     score_list = sys.argv[1:]
     scores = []
     try:
@@ -41,7 +40,7 @@ def add_scores() -> list:
     return scores
 
 
-def display_scores(scores: list) -> None:
+def display_scores(scores: list[int]) -> None:
     print(f"Total players: {len(scores)}")
     print(f"Total score: {sum(scores)}")
     print(f"Average score: {sum(scores) / len(scores)}")
